@@ -67,6 +67,22 @@ function buildTable(data) {
         buildGame(i, table, data.game.latest.version);
     });
 
+    if (data.pre_download_game) {
+        latestCell = document.createElement("th");
+        latestCell.colSpan = 3;
+        latestCell.appendChild(document.createTextNode("Pre-download Latest"));
+        table.insertRow().appendChild(latestCell);
+        buildGame(data.pre_download_game.latest, table);
+
+        latestCell = document.createElement("th");
+        latestCell.colSpan = 3;
+        latestCell.appendChild(document.createTextNode("Pre-download Diffs"));
+        table.insertRow().appendChild(latestCell);
+        data.pre_download_game.diffs.forEach((i) => {
+            buildGame(i, table, data.pre_download_game.latest.version);
+        });
+    }
+
     let plTable = document.getElementById("plugins-table");
 
     data.plugin.plugins.forEach((i) => {
